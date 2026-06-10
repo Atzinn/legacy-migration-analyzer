@@ -1,23 +1,16 @@
 import { useState } from "react"
+
+import type { Analysis } from "./types/Analysis"
+
 import DependenciesTable from "./components/DependenciesTable";
 import InfoCard from "./components/InfoCard";
 
-type Dependency = {
-  name: string;
-  version: string;
-}
-
-type Analysis = {
-  projectName: string;
-  projectVersion: string;
-  dependencies: Dependency[];
-  devDependencies: Dependency[];
-}
 
 function App() {  
   const [jsonInput, setJsonInput] = useState("");
   const [showError, setShowError] = useState(false);
-  const [analysis, setAnalysis] = useState<Analysis | null>(null)
+  const [analysis, setAnalysis] = useState<Analysis | null>(null);
+
 
   const parseDependencies = (dependencies: Record<string, string>) => {
     return Object.entries(dependencies).map(([name, version]) => ({
@@ -55,12 +48,17 @@ function App() {
     <>
       <div className="min-h-screen bg-slate-100 p-18">
         <div className="max-w-4xl mx-auto">
+
+          {/* Header */}
           <h1 className="text-4xl font-bold mb-2">
             Legacy Migration Anlyzer
           </h1>
           <p className="text-slate-600 mb-8">
             Analyze legacy project dependencies
           </p>
+
+          {/* Package json loader */}
+
           <div className="bg-white rounded-xl shadow p-6">
             <textarea 
               className="w-full h-64 border rounded-lg p-4 font-mono"
@@ -70,9 +68,11 @@ function App() {
             />
             <button
               onClick={analyzePackage}
-              className="mt-4 px-6 py-3 rounded-lg bg-black text-white hover:opacity-90"
+              className="mt-4 px-6 py-3 rounded-lg bg-black text-white hover:opacity-90 cursor-pointer hover:bg-gray-700 transition duration-100 ease-in"
             >Analyze</button>
           </div>
+
+          {/* Project info cards */}
 
           {
             (analysis?.dependencies.length > 0 || analysis?.devDependencies.length > 0) && (
@@ -90,6 +90,7 @@ function App() {
             )
           }
 
+          {/* Main dependecnies */}
           {
             analysis?.dependencies.length > 0 && (
               <div className="bg-white rounded-xl shadow p-6 mt-8">
@@ -101,6 +102,9 @@ function App() {
             )
 
           }
+
+          {/* Dev Dependencies */}
+
           {
             analysis?.devDependencies.length > 0 && (
               <div className="bg-white rounded-xl shadow p-6 mt-8">
@@ -112,6 +116,7 @@ function App() {
             )
           }
 
+          {/* Error */}
           {
             showError && (
               <div className="bg-red-300 rounded-xl shadow p-6 mt-8">
