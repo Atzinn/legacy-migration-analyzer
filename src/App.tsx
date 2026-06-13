@@ -61,7 +61,7 @@ function App() {
 
           <div className="bg-white rounded-xl shadow p-6">
             <textarea 
-              className="w-full h-64 border rounded-lg p-4 font-mono"
+              className="w-full h-64 border rounded-lg p-4 font-mono cursor-text"
               placeholder="Put here your package.json"
               value={jsonInput}
               onChange={(e) => setJsonInput(e.target.value)}
@@ -80,7 +80,7 @@ function App() {
                 <h2 className="text-2xl font-semibold mb-4">
                   Project Info
                 </h2>
-                <div className="min-w-100 flex flex-row flex-wrap justify-evenly p-5">
+                <div className="min-w-100 grid grid-cols-2 p-5">
                   <InfoCard title={"Project Name"} data={analysis?.projectName}/>
                   <InfoCard title={"Project Version"} data={analysis?.projectVersion} />
                   <InfoCard title={"No. Depenedencies"} data={analysis?.dependencies.length} />
